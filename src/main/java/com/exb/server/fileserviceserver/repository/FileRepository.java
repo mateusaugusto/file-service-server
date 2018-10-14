@@ -123,6 +123,20 @@ public class FileRepository {
         }
     }
 
+    public List<File> findAllFile(final String aSessionId) throws FileServiceException {
+        lock.lock();
+        try {
+            return fileListMap
+                    .tailMap(aSessionId)
+                    .values()
+                    .parallelStream()
+                    .flatMap(Collection::parallelStream)
+                    .collect(Collectors.toList());
+        } finally {
+            lock.unlock();
+        }
+    }
+
     public OutputStream openForWriting(final String aSessionId, final String aPath, final boolean aAppend)
             throws FileServiceException {
         lock.lock();

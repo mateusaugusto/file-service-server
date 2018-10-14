@@ -1,5 +1,7 @@
 package com.exb.server.fileserviceserver.controller;
 
+import DTO.FileDTO;
+import com.exb.server.fileserviceserver.domain.File;
 import com.exb.server.fileserviceserver.service.FileService;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -73,6 +75,13 @@ public class FileController {
     public ResponseEntity<List<String>> findAll(@NonNull @PathVariable("aSessionId") String aSessionId) throws IOException {
         List<String> listPath = fileService.list(aSessionId);
         return ResponseEntity.status(HttpStatus.OK).body(listPath);
+    }
+
+    @GetMapping(value = "/all/{aSessionId}")
+    public ResponseEntity<List<FileDTO>> findAllFile(@NonNull @PathVariable("aSessionId") String aSessionId) throws IOException {
+        List<File> listFile = fileService.findAllFile(aSessionId);
+        List<FileDTO> listFileDTO  = fileService.convertListFileToListFileDto(listFile);
+        return ResponseEntity.status(HttpStatus.OK).body(listFileDTO);
     }
 
     @GetMapping(value = "/open/writing/{aSessionId}")

@@ -1,13 +1,18 @@
 package com.exb.server.fileserviceserver.service.impl;
 
+import DTO.FileDTO;
+import com.exb.server.fileserviceserver.domain.File;
 import com.exb.server.fileserviceserver.exception.FileServiceException;
 import com.exb.server.fileserviceserver.repository.FileRepository;
 import com.exb.server.fileserviceserver.service.FileService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +21,9 @@ public class FileServiceImpl implements FileService {
 
     @Autowired
     private FileRepository fileRepository;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @Override
     public String saveFile(final String aSessionId, MultipartFile file) throws IOException {
@@ -30,12 +38,17 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public InputStream openForReading(final String aSessionId, final String aPath) throws FileServiceException {
-      return this.fileRepository.openForReading(aSessionId, aPath);
+        return this.fileRepository.openForReading(aSessionId, aPath);
     }
 
     @Override
     public List<String> list(final String aSessionId) throws FileServiceException {
-       return this.fileRepository.findAll(aSessionId);
+        return this.fileRepository.findAll(aSessionId);
+    }
+
+    @Override
+    public List<com.exb.server.fileserviceserver.domain.File> findAllFile(final String aSessionId) throws FileServiceException {
+        return this.fileRepository.findAllFile(aSessionId);
     }
 
     @Override
@@ -53,5 +66,23 @@ public class FileServiceImpl implements FileService {
     @Override
     public String getParent(final String aSessionId, final String aPath) throws FileServiceException {
         return this.fileRepository.getParent(aSessionId, aPath);
+    }
+
+    @Override
+    public List<FileDTO> convertListFileToListFileDto(List<File> fileList){
+        List<FileDTO> baseFileDTOList = new ArrayList<>();
+        fileList.forEach(campaign -> baseFileDTOList.add(this.convert(campaign)));
+        return baseFileDTOList;
+    }
+
+    public FileDTO convert(File file) {
+
+        if (null == file) {
+            return null;
+        }
+
+        FileDTO fileDTO = this.modelMapper.map(file, FileDTO.class);
+
+        return fileDTO;
     }
 }

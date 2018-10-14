@@ -1,5 +1,7 @@
 package com.exb.server.fileserviceserver.service;
 
+import DTO.FileDTO;
+import com.exb.server.fileserviceserver.domain.File;
 import com.exb.server.fileserviceserver.exception.FileServiceException;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +26,8 @@ public interface FileService {
     List<String> list(@NotNull final String aSessionId)
             throws FileServiceException;
 
+    List<com.exb.server.fileserviceserver.domain.File> findAllFile(String aSessionId) throws FileServiceException;
+
     void delete(@NotNull final String aSessionId, @NotNull final String aPath, final boolean aRecursive)
             throws FileServiceException;
 
@@ -32,4 +36,6 @@ public interface FileService {
 
     String getParent(@NotNull final String aSessionId, @NotNull final String aPath)
             throws FileServiceException;
+
+    List<FileDTO> convertListFileToListFileDto(List<File> fileList);
 }
