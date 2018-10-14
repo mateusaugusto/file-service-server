@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+jwt.publickey: |
+                -----BEGIN PUBLIC KEY-----
+                MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApRoGPrQDzAF2i2P8wuSH
+                lScgSRiHA7fgYtpH/14wejlLqqCLVbPjUm11n1uMuhKUhzjdspvDYA1405o9uAs5
+                1F+mt5tgakQNww4rc0rlEkdPyTV6VqnROp7ZGVcl77Ab21CVlv30+SGCY442TjKz
+                cwIR5areGWBevmdl9iPTwl7IBxGtGY4fxyX0xzqPLqUTEN3musvNzqjx+yR+FUn3
+                YerOV81NXXO0WoDIvgMdeeQ9vAqlU0yKy3qp3R++gOUu/qihEYFSZPRiswQBuix5
+                0532RP+95P/VGaoL4rkiXN3mWp0qa6/cW+yFdLrjnb+oanHlHYVk9FI/hWabx9ZA
+                2QIDAQAB
+                -----END PUBLIC KEY-----

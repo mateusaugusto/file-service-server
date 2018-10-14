@@ -1,0 +1,36 @@
+eclipse
+.classpath
+.project
+.settings/
+*.launch
+
+# Intellij
+.idea/
+*.iml
+*.iws
+.directory
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+*.tlog
+*~
+
+TelosysTools
+telosys-tools.cfg
+.sass-cache/**
+env.sh
+dump.json
+maven-wrapper.properties
+mvnw.*
+npm-debug.log
+imedicina-app.ipr
+
+# dev application for mac users
+application-mac.yml
+
+bin/
