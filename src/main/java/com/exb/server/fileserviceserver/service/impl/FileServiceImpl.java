@@ -55,7 +55,6 @@ public class FileServiceImpl implements FileService {
     public void delete(final String aSessionId, final String aPath, final boolean aRecursive)
             throws FileServiceException {
         this.fileRepository.delete(aSessionId, aPath, aRecursive);
-
     }
 
     @Override

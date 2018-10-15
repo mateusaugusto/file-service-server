@@ -25,7 +25,7 @@ public class FileController {
     private FileService fileService;
 
 
-    @PostMapping(value = "/upload/{aSessionId}")
+    @PostMapping(value = "/upload/{aSessionId}", headers = "content-type=multipart/*")
     public ResponseEntity<String> upload(@PathVariable("aSessionId") String aSessionId,
                                                  @RequestParam("file") MultipartFile file) throws IOException {
         String result = fileService.saveFile(aSessionId, file);
