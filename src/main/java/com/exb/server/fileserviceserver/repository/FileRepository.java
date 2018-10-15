@@ -87,7 +87,7 @@ public class FileRepository {
             File file = this.getFileInHashMap(aSessionId, aPath);
 
             if (file.getPath() == null) {
-                return null;
+                return "No Parent available";
             }
 
             return file.getPath().getParent().toString();

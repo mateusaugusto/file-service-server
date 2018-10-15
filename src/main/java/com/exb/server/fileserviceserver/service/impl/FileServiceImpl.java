@@ -28,7 +28,7 @@ public class FileServiceImpl implements FileService {
     @Override
     public String saveFile(final String aSessionId, MultipartFile file) throws IOException {
         fileRepository.save(aSessionId, file);
-        return "done";
+        return "File created";
     }
 
     @Override

@@ -25,45 +25,30 @@ public class FileController {
     private FileService fileService;
 
 
-
-    @GetMapping(value = "/hello")
-    public Boolean hello() throws IOException {
-        return true;
-    }
-
     @PostMapping(value = "/upload/{aSessionId}")
-    public ResponseEntity<Void> handleFileUpload(@PathVariable("aSessionId") String aSessionId,
+    public ResponseEntity<String> upload(@PathVariable("aSessionId") String aSessionId,
                                                  @RequestParam("file") MultipartFile file) throws IOException {
-        fileService.saveFile(aSessionId, file);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        String result = fileService.saveFile(aSessionId, file);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     @GetMapping(value = "/exist/{aSessionId}")
-    public ResponseEntity<Boolean> handleFileUpload(@NonNull @PathVariable("aSessionId") String aSessionId,
+    public ResponseEntity<Boolean> getExist(@NonNull @PathVariable("aSessionId") String aSessionId,
                                                     @NonNull @RequestParam("path") String path) throws IOException {
         boolean existFile = fileService.exists(aSessionId, path);
-
-        if (!existFile) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(existFile);
-        }
-
-        return ResponseEntity.status(HttpStatus.FOUND).body(existFile);
+        return ResponseEntity.status(HttpStatus.OK).body(existFile);
     }
 
     @GetMapping(value = "/parent/{aSessionId}")
     public ResponseEntity<String> getParent(@NonNull @PathVariable("aSessionId") String aSessionId,
                                             @NonNull @RequestParam("path") String path) throws IOException {
+
         String parentPath = fileService.getParent(aSessionId, path);
-
-        if (parentPath == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-        return ResponseEntity.status(HttpStatus.FOUND).body(parentPath);
+        return ResponseEntity.status(HttpStatus.OK).body(parentPath);
     }
 
     @DeleteMapping(value = "/{aSessionId}")
-    public ResponseEntity<Void> getParent(@NonNull @PathVariable("aSessionId") String aSessionId,
+    public ResponseEntity<Void> delete(@NonNull @PathVariable("aSessionId") String aSessionId,
                                           @NonNull @RequestParam("path") String path,
                                           @NonNull @RequestParam("recursive") boolean recursive) throws IOException {
 
